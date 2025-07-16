@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { BackendURL } from "../../../constants/constant";
 
 export default function OwerSignin() {
   const {
@@ -14,7 +15,7 @@ export default function OwerSignin() {
 
   const handleSignin = async (ownerData) => {
     try {
-      const res = await axios.post("http://localhost:3000/owner/signin", {
+      const res = await axios.post(`${BackendURL}/owner/signin`, {
         ownerData,
       });
 

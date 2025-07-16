@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { BackendURL } from "../../../constants/constant";
 
 function OwnerSignup() {
   const {
@@ -15,7 +16,7 @@ function OwnerSignup() {
 
   const handleSignup = async (ownerData) => {
     try {
-      const res = await axios.post("http://localhost:3000/owner/signup", {
+      const res = await axios.post(`${BackendURL}/owner/signup`, {
         ownerData,
       });
 

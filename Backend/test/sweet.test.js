@@ -35,4 +35,10 @@ describe("Sweet add Test", () => {
 
     expect(res.status).toBe(409);
   });
+
+  it("Should return all Sweets", async () => {
+    const res = await request(app).get("/sweet");
+
+    expect(res.status).toBe(200);
+  });
 });

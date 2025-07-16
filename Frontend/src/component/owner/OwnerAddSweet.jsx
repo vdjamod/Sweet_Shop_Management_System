@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BackendURL } from "../../../constants/constant";
 
 export default function OwnerAddSweet() {
   const {
@@ -14,7 +15,7 @@ export default function OwnerAddSweet() {
   const addSweet = async (sweetData) => {
     console.log(sweetData);
     try {
-      const result = await axios.post("http://localhost:3000/sweet/add", {
+      const result = await axios.post(`${BackendURL}/owner/sweet/add`, {
         sweetData,
       });
 
