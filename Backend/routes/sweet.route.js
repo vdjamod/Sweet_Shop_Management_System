@@ -1,8 +1,8 @@
 import express from "express";
-import { addSweet } from "../controller/index.js";
+import { getSweet } from "../controller/index.js";
 
 const router = express.Router({ mergeParams: true });
 
-router.post("/add", addSweet);
+router.get("/all", getSweet);
 
 export default router;
