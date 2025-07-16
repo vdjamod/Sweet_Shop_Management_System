@@ -5,7 +5,7 @@ import {
   ownerSignup,
 } from "./owner.controller.js";
 import { userSignin, userSignup } from "./user.controller.js";
-import { getAllSweets, getSweet } from "./sweet.controller.js";
+import { getAllSweets, getSweet , deleteSweet} from "./sweet.controller.js";
 
 export {
   ownerSignin,
@@ -15,5 +15,6 @@ export {
   userSignin,
   userSignup,
   addSweet,
+  deleteSweet,
   getAllSweets,
 };

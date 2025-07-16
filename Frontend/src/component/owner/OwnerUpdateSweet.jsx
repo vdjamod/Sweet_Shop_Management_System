@@ -34,7 +34,7 @@ export default function OwnerAddSweet() {
   const updateSweet = async (sweetData) => {
     console.log(sweetData);
     try {
-      const result = await axios.post(`${BackendURL}/owner/sweet/${sweetId}/update`, {
+      const result = await axios.put(`${BackendURL}/owner/sweet/${sweetId}/update`, {
         sweetData,
       });
 

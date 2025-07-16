@@ -21,3 +21,19 @@ export const getSweet = async (req, res) => {
     res.status(404).json({ message: "Sweet NOT Found" });
   }
 };
+
+export const deleteSweet = async (req, res) => {
+  const { sweetId } = req.params;
+  
+  if (!sweetId) {
+    res.status(404).json({ message: "Sweet ID not found..." });
+  }
+
+  const result = await Sweet.findByIdAndDelete(sweetId);
+
+  if (!result) {
+    res.status(500).json({ message: "Sweet NOT Found" });
+  }
+
+  res.status(200).json({ messsage: "Sweet Delete successfully..." });
+};
