@@ -65,10 +65,10 @@ describe("Sweet crud testing", () => {
     };
 
     it("Should Update the Sweet", async () => {
-      const sweetId = "6877a204f774245affa5b034";
+      const sweetId = "6877fb9ab573f4d341ca8d19";
 
       const res = await request(app)
-        .post(`/owner/sweet/${sweetId}/update`)
+        .put(`/owner/sweet/${sweetId}/update`)
         .send({ sweetData });
 
       expect(res.status).toBe(200);
@@ -78,8 +78,26 @@ describe("Sweet crud testing", () => {
       const sweetId = "000000000000000000000000";
 
       const res = await request(app)
-        .post(`/owner/sweet/${sweetId}/update`)
+        .put(`/owner/sweet/${sweetId}/update`)
         .send({ sweetData });
+
+      expect(res.status).toBe(500);
+    });
+  });
+
+  describe("Delete Sweet", () => {
+    it("Should delete the sweet", async () => {
+      const sweetId = "6877fb9ab573f4d341ca8d19";
+
+      const res = await request(app).delete(`/sweet/${sweetId}`);
+
+      expect(res.status).toBe(200);
+    });
+
+    it("Should throw error as Failed to delete sweet", async () => {
+      const sweetId = "000000000000000000000000";
+
+      const res = await request(app).delete(`/sweet/${sweetId}`);
 
       expect(res.status).toBe(500);
     });

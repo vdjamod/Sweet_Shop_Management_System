@@ -17,6 +17,14 @@ function UserHome() {
     getSweets();
   }, []);
 
+  const handleDelete = async (sweetId) => {
+    const res = await axios.delete(`${BackendURL}/sweet/${sweetId}`);
+
+    if(res.status == 200) {
+      console.log("Delete Successfully");
+    }
+  }
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
@@ -50,7 +58,8 @@ function UserHome() {
                 Update
               </Link>
               <Link
-                to={`/sweet/${sweet._id}/delete`}
+                // to={`/sweet/${sweet._id}/delete`}
+                onClick={() => handleDelete(sweet._id)}
                 className="text-red-600 hover:underline"
               >
                 Delete

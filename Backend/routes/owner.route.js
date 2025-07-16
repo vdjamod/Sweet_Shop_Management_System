@@ -11,6 +11,6 @@ const router = express.Router({ mergeParams: true });
 router.post("/signin", ownerSignin);
 router.post("/signup", ownerSignup);
 router.post("/sweet/add", addSweet);
-router.post("/sweet/:sweetId/update", updateSweet);
+router.put("/sweet/:sweetId/update", updateSweet);
 
 export default router;
