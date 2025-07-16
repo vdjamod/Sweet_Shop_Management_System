@@ -1,6 +1,7 @@
 import request from "supertest";
 import mongoose from "mongoose";
-import { app } from "../../app";
+import { app } from "../app";
+import { Owner } from "../Models";
 
 afterAll(async () => {
   await mongoose.connection.close();
@@ -9,15 +10,13 @@ afterAll(async () => {
 describe("Owner Auth Test", () => {
   describe("Owner Signup Test", () => {
     it("Should save data into db", async () => {
-      const res = await request(app)
-        .post("/owner/signup")
-        .send({
-          ownerData: {
-            name: "Testing Owner",
-            email: "demo1@gmail.com",
-            password: "demo1",
-          },
-        });
+      const ownerData = {
+        name: "Testing Owner",
+        email: "demo1@gmail.com",
+        password: "demo1",
+      };
+
+      const res = await request(app).post("/owner/signup").send({ ownerData });
 
       expect(res.status).toBe(200);
     });

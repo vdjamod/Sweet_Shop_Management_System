@@ -12,6 +12,7 @@ import UserHome from "./component/user/UserHome.jsx";
 
 //Utils
 import Home from "./Home.jsx";
+import OwnerAddSweet from "./component/owner/OwnerAddSweet.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/owner/signin" element={<OwerSignin />} />
           <Route path="/owner/signup" element={<OwnerSignup />} />
+          <Route path="/owner/sweet/add" element={<OwnerAddSweet />} />
           <Route path="/user/signup" element={<UserSignup />} />
           <Route path="/user/signin" element={<UserSignin />} />
           <Route path="/owner" element={<OwnerHome />} />

@@ -1,6 +1,7 @@
 import request from "supertest";
 import mongoose from "mongoose";
-import { app } from "../../app";
+import { app } from "../app";
+import { User } from "../Models";
 
 afterAll(async () => {
   await mongoose.connection.close();
@@ -8,7 +9,7 @@ afterAll(async () => {
 
 describe("User Auth Test", () => {
   describe("User signin Test", () => {
-    it("Should throw user details", async () => {
+    it("Should return user details", async () => {
       const res = await request(app)
         .post("/user/signin")
         .send({
@@ -50,15 +51,13 @@ describe("User Auth Test", () => {
 
   describe("User Signup Test", () => {
     it("Should save data into db", async () => {
-      const res = await request(app)
-        .post("/user/signup")
-        .send({
-          userData: {
-            name: "Testing User",
-            email: "demo1@gmail.com",
-            password: "demo1",
-          },
-        });
+      const userData = {
+        name: "Testing User",
+        email: "demo1@gmail.com",
+        password: "demo1",
+      };
+
+      const res = await request(app).post("/user/signup").send({ userData });
 
       expect(res.status).toBe(200);
     });
