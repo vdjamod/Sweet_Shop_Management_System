@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Owner, Sweet } from "../Models/index.js";
 
 export const ownerSignin = async (req, res) => {
@@ -71,4 +72,25 @@ export const addSweet = async (req, res) => {
   } else {
     res.status(500).json({ success: false, message: "Failed to add Sweet..." });
   }
+};
+
+export const updateSweet = async (req, res) => {
+  const { sweetId } = req.params;
+  const { sweetData } = req.body;
+
+  if (!sweetId) {
+    res.status(404).json({ message: "Sweet ID not found..." });
+    return;
+  }
+
+  const result = await Sweet.findByIdAndUpdate(sweetId, sweetData, {
+    new: true,
+  });
+
+  if (!result) {
+    res.status(500).json({ message: "Failed to update Sweet..." });
+    return;
+  }
+
+  res.status(200).json({ message: "Sweet updated successfully...", result });
 };

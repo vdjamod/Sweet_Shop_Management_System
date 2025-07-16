@@ -9,6 +9,7 @@ import OwnerSignup from "./component/owner/OwnerSignup.jsx";
 import UserSignup from "./component/user/UserSignup";
 import UserSignin from "./component/user/UserSignin";
 import UserHome from "./component/user/UserHome.jsx";
+import OwnerUpdateSweet from "./component/owner/OwnerUpdateSweet.jsx";
 
 //Utils
 import Home from "./Home.jsx";
@@ -22,6 +23,10 @@ function App() {
           <Route path="/owner/signin" element={<OwerSignin />} />
           <Route path="/owner/signup" element={<OwnerSignup />} />
           <Route path="/owner/sweet/add" element={<OwnerAddSweet />} />
+          <Route
+            path="/owner/sweet/:sweetId/update"
+            element={<OwnerUpdateSweet />}
+          />
           <Route path="/user/signup" element={<UserSignup />} />
           <Route path="/user/signin" element={<UserSignin />} />
           <Route path="/owner" element={<OwnerHome />} />

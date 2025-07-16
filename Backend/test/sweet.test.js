@@ -7,38 +7,81 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("Sweet add Test", () => {
-  it("Should create sweet", async () => {
+describe("Sweet crud testing", () => {
+  describe("Sweet add Test", () => {
+    it("Should create sweet", async () => {
+      const sweetData = {
+        name: "demo1",
+        price: 2,
+        category: "demo1",
+        quantity: 2,
+      };
+
+      const res = await request(app)
+        .post("/owner/sweet/add")
+        .send({ sweetData });
+
+      expect(res.status).toBe(200);
+    });
+
+    it("Should throw an error as Sweet already exist", async () => {
+      const res = await request(app)
+        .post("/owner/sweet/add")
+        .send({
+          sweetData: {
+            name: "demo",
+            price: 1,
+            category: "demo",
+            quantity: 1,
+          },
+        });
+
+      expect(res.status).toBe(409);
+    });
+  });
+
+  describe("Get all Sweet", () => {
+    it("Should return all Sweets", async () => {
+      const res = await request(app).get("/sweet/all");
+
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe("Get sweet", () => {
+    it("Should return the sweet by ID", async () => {
+      const res = await request(app).get("/sweet/6877a204f774245affa5b034");
+
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe("Update Sweet", () => {
     const sweetData = {
-      name: "demo1",
-      price: 2,
-      category: "demo1",
-      quantity: 2,
+      name: "demo",
+      price: 1000,
+      category: "nuts",
+      quantity: 50,
     };
 
-    const res = await request(app).post("/sweet/add").send({ sweetData });
+    it("Should Update the Sweet", async () => {
+      const sweetId = "6877a204f774245affa5b034";
 
-    expect(res.status).toBe(200);
-  });
+      const res = await request(app)
+        .post(`/owner/sweet/${sweetId}/update`)
+        .send({ sweetData });
 
-  it("Should throw an error as Sweet already exist", async () => {
-    const res = await request(app)
-      .post("/sweet/add")
-      .send({
-        sweetData: {
-          name: "demo",
-          price: 1,
-          category: "demo",
-          quantity: 1,
-        },
-      });
+      expect(res.status).toBe(200);
+    });
 
-    expect(res.status).toBe(409);
-  });
+    it("Should throw an error as sweet NOT Found", async () => {
+      const sweetId = "000000000000000000000000";
 
-  it("Should return all Sweets", async () => {
-    const res = await request(app).get("/sweet");
+      const res = await request(app)
+        .post(`/owner/sweet/${sweetId}/update`)
+        .send({ sweetData });
 
-    expect(res.status).toBe(200);
+      expect(res.status).toBe(500);
+    });
   });
 });
