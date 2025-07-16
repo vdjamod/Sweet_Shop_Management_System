@@ -18,7 +18,7 @@ export default function UserSignin() {
       });
 
       if (res.data.success) {
-        navigate("/user");
+        navigate("/home");
       } else {
         alert(res.data.message);
       }
