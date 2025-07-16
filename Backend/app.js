@@ -4,6 +4,9 @@ import { User, Owner, Sweet } from "./Models/index.js";
 import { sendResponse } from "./utils/index.js";
 import mongoose from "mongoose";
 
+//router
+import { ownerRouter, userRouter, sweetRouter } from "./routes/index.js";
+
 main()
   .then(() => {
     console.log("connection successful");
@@ -32,113 +35,9 @@ const corsOption = {
 
 app.use(cors(corsOption));
 
-app.post("/owner/signup", async (req, res) => {
-  const { ownerData } = req.body;
-
-  if (!ownerData) {
-    sendResponse(400, "Enter the data for signup");
-    return;
-  }
-
-  const existingOwner = await Owner.findOne({ email: ownerData.email });
-
-  if (existingOwner) {
-    res.status(409).json({ success: false, message: "Email already Exist..." });
-    return;
-  }
-
-  const newOwner = new Owner(ownerData);
-  const result = await newOwner.save();
-
-  if (result) {
-    res
-      .status(200)
-      .json({ success: true, message: "Owner Signup successfully" });
-  } else {
-    res.status(500).json({ success: false, message: "Failed to Signup" });
-  }
-});
-
-app.post("/owner/signin", async (req, res) => {
-  const { ownerData } = req.body;
-
-  if (!ownerData) {
-    res
-      .status(404)
-      .json({ success: false, message: "Please enter owner data..." });
-    return;
-  }
-
-  const result = await Owner.findOne({
-    email: ownerData.email,
-    password: ownerData.password,
-  });
-
-  if (result) {
-    res
-      .status(200)
-      .json({ success: true, message: "Signin successfully...", data: result });
-  } else {
-    res.status(401).json({ success: false, message: "UnAuthorized owner..." });
-  }
-});
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-app.post("/user/signup", async (req, res) => {
-  const { userData } = req.body;
-
-  const existingUser = await User.findOne({ email: userData.email });
-
-  if (existingUser) {
-    res
-      .status(409)
-      .json({ success: false, message: "Email already registered..." });
-    return;
-  }
-
-  if (!userData) {
-    res
-      .status(404)
-      .json({ success: false, message: "Please enter valid user data..." });
-    return;
-  }
-
-  const newUser = new User(userData);
-  const result = await newUser.save();
-
-  if (result) {
-    res.status(200).json({ success: true, message: "Signup successfully..." });
-  } else {
-    res.status(500).json({ success: false, message: "Failed to signup" });
-  }
-});
-
-app.post("/user/signin", async (req, res) => {
-  const { userData } = req.body;
-  
-  if (!userData) {
-    res.status(404).json({ success: false, message: "data not found" });
-    return;
-  }
-
-  const dbUser = await User.findOne({ email: userData.email });
-
-  if (dbUser === null) {
-    return res.status(404).json({
-      success: false,
-      message: "User not registered",
-    });
-  }
-
-  const result = dbUser.password == userData.password;
-
-  if (result) {
-    res.status(200).json({ success: true, message: "Signin successfully..." });
-  } else {
-    res.status(401).json({ success: false, message: "UnAuthorized user..." });
-  }
-});
+app.use("/owner", ownerRouter);
+app.use("/user", userRouter);
+app.use('/sweet', sweetRouter);
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(3000, () => {

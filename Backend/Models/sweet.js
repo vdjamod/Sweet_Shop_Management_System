@@ -4,20 +4,20 @@ const sweetSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
     price: {
       type: Number,
-      require: true,
+      required: true,
     },
     category: {
       type: String,
-      require: true,
+      required: true,
     },
     quantity: {
       type: Number,
-      require: true,
+      required: true,
     },
   },
   {
