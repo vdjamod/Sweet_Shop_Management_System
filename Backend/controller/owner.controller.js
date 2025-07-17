@@ -99,7 +99,6 @@ export const addInventory = async (req, res) => {
   const { inventoryData } = req.body;
 
   for (const key in inventoryData) {
-
     await Sweet.findOneAndUpdate(
       { name: key },
       { $inc: { quantity: parseInt(inventoryData[key]) } }

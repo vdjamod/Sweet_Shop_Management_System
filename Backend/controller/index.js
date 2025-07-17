@@ -5,13 +5,12 @@ import {
   ownerSignup,
   addInventory,
 } from "./owner.controller.js";
-import { userSignin, userSignup } from "./user.controller.js";
+import { userSignin, userSignup, buySweet } from "./user.controller.js";
 import {
   getAllSweets,
   getSweet,
   sweetSortFilter,
   deleteSweet,
-  buySweet,
 } from "./sweet.controller.js";
 
 export {

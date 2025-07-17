@@ -59,18 +59,20 @@ describe("Sweet crud testing", () => {
 
   describe("Update Sweet", () => {
     const sweetData = {
-      name: "demo",
-      price: 1000,
-      category: "nuts",
-      quantity: 50,
+      sweetData: {
+        name: "demo",
+        price: 1000,
+        category: "nuts",
+        quantity: 100,
+      },
     };
 
     it("Should Update the Sweet", async () => {
-      const sweetId = "6877fb9ab573f4d341ca8d19";
+      const sweetId = "6877a204f774245affa5b034";
 
       const res = await request(app)
         .put(`/owner/sweet/${sweetId}/update`)
-        .send(sweetData);
+        .send({ sweetData });
 
       expect(res.status).toBe(200);
     });
@@ -88,7 +90,7 @@ describe("Sweet crud testing", () => {
 
   describe("Delete Sweet", () => {
     it("Should delete the sweet", async () => {
-      const sweetId = "6877fb9ab573f4d341ca8d19";
+      const sweetId = "68789e0685d94ab1b372e628";
 
       const res = await request(app).delete(`/sweet/${sweetId}`);
 
@@ -132,6 +134,23 @@ describe("Sweet crud testing", () => {
       const res = await request(app)
         .post("/owner/sweet/inventory/update")
         .send({ inventoryData });
+
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe("Purchase Sweet", () => {
+    const buyData = {
+      name: "demo",
+      quantity: 5,
+    };
+
+    const sweetId = "687769c0cffd8c066d30ed5f";
+
+    it("Should buy and update stock of give sweet", async () => {
+      const res = await request(app).post(`/user/sweet/${sweetId}/buy`).send({
+        buyData,
+      });
 
       expect(res.status).toBe(200);
     });
