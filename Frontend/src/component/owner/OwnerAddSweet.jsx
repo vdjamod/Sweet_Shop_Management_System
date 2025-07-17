@@ -12,8 +12,8 @@ export default function OwnerAddSweet() {
 
   const navigate = useNavigate();
 
+  // Function to submit sweet data 
   const addSweet = async (sweetData) => {
-    console.log(sweetData);
     try {
       const result = await axios.post(`${BackendURL}/owner/sweet/add`, {
         sweetData,

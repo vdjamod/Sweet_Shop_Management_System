@@ -14,6 +14,7 @@ function OwnerSignup() {
   const password = watch("password");
   const navigate = useNavigate();
 
+  // Funtion for submit to signup
   const handleSignup = async (ownerData) => {
     try {
       const res = await axios.post(`${BackendURL}/owner/signup`, {

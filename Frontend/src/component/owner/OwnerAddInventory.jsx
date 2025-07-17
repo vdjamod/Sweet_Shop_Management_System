@@ -16,6 +16,7 @@ function OwnerAddInventory() {
   const navigate = useNavigate();
   const [sweets, setSweets] = useState([]);
 
+  // Function to get All sweets from Backend
   async function getSweets() {
     const res = await axios.get(`${BackendURL}/sweet/all`);
 
@@ -26,6 +27,7 @@ function OwnerAddInventory() {
     getSweets();
   }, []);
 
+  // Submit Add Inventory Data
   const handleAddInventory = async (inventoryData) => {
     console.log(inventoryData);
 
@@ -33,8 +35,8 @@ function OwnerAddInventory() {
       inventoryData,
     });
 
-    if(res.status == 200) {
-      navigate('/owner');
+    if (res.status == 200) {
+      navigate("/owner");
     }
   };
 
