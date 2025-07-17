@@ -2,6 +2,7 @@ import request from "supertest";
 import mongoose from "mongoose";
 import { app } from "../app.js";
 import Sweet from "../Models/sweet.js";
+import { response } from "express";
 
 afterAll(async () => {
   await mongoose.connection.close();
@@ -100,6 +101,25 @@ describe("Sweet crud testing", () => {
       const res = await request(app).delete(`/sweet/${sweetId}`);
 
       expect(res.status).toBe(500);
+    });
+  });
+
+  describe("Filter and Sort Sweet", () => {
+    const sortFilterOptions = {
+      name: "",
+      category: "nut",
+      sortBy: "price",
+      sort: 1,
+      min: 500,
+      max: 1000,
+    };
+
+    it("Should filter the sweets", async () => {
+      const res = await request(app)
+        .post("/sweet/sort-filter")
+        .send({ sortFilterOptions });
+
+      expect(res.status).toBe(200);
     });
   });
 });

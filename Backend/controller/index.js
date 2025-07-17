@@ -5,7 +5,13 @@ import {
   ownerSignup,
 } from "./owner.controller.js";
 import { userSignin, userSignup } from "./user.controller.js";
-import { getAllSweets, getSweet , deleteSweet} from "./sweet.controller.js";
+import {
+  getAllSweets,
+  getSweet,
+  sweetSortFilter,
+  deleteSweet,
+  buySweet,
+} from "./sweet.controller.js";
 
 export {
   ownerSignin,
@@ -17,4 +23,6 @@ export {
   addSweet,
   deleteSweet,
   getAllSweets,
+  buySweet,
+  sweetSortFilter,
 };

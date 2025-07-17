@@ -14,6 +14,7 @@ import OwnerUpdateSweet from "./component/owner/OwnerUpdateSweet.jsx";
 //Utils
 import Home from "./Home.jsx";
 import OwnerAddSweet from "./component/owner/OwnerAddSweet.jsx";
+import UserSweetBuy from "./component/user/UserSweetBuy.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/user/signin" element={<UserSignin />} />
           <Route path="/owner" element={<OwnerHome />} />
           <Route path="/home" element={<UserHome />} />
+          <Route path="/user/sweet/:sweetId/buy" element={<UserSweetBuy />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
