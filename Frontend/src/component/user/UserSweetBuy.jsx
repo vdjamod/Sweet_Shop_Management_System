@@ -18,6 +18,7 @@ function UserSweetBuy() {
   const navigate = useNavigate();
   const [sweetData, setSweetData] = useState("");
 
+  // Function to get Sweet Data from Backend
   const getSweetData = async () => {
     console.log(sweetId);
     const res = await axios.get(`${BackendURL}/sweet/${sweetId}`);
@@ -30,6 +31,7 @@ function UserSweetBuy() {
     getSweetData();
   }, []);
 
+  // Function to handle Buy Sweets
   const handleBuy = async (buyData) => {
     const res = await axios.post(
       `${BackendURL}/user/sweet/${sweetData._id}/buy`,

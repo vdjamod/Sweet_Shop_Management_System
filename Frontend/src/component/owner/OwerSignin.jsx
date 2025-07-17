@@ -13,6 +13,7 @@ export default function OwerSignin() {
 
   const navigate = useNavigate();
 
+  // Submit Signin
   const handleSignin = async (ownerData) => {
     try {
       const res = await axios.post(`${BackendURL}/owner/signin`, {
@@ -40,7 +41,7 @@ export default function OwerSignin() {
             Sign in as Admin
           </h2>
           <form
-            onSubmit={handleSubmit(handleSignin)}
+            onSubmit={handleSubmit(handleSignin)} // Submit signin
             className="space-y-6 mb-4 mt-4"
           >
             <div>

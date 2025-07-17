@@ -15,6 +15,7 @@ export default function OwnerAddSweet() {
   const navigate = useNavigate();
   const { sweetId } = useParams();
 
+  // Function to get Sweet data from Backend
   async function getSweet() {
     const res = await axios.get(`${BackendURL}/sweet/${sweetId}`);
 

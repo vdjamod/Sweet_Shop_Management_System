@@ -14,6 +14,7 @@ function UserSignup() {
   const password = watch("password");
   const navigate = useNavigate();
 
+  // Function to submit User Signup Data
   const onSubmit = async (userData) => {
     try {
       const res = await axios.post(`${BackendURL}/user/signup`, {
