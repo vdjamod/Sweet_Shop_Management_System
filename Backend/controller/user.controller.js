@@ -63,6 +63,13 @@ export const buySweet = async (req, res) => {
   const { sweetId } = req.params;
   const { buyData } = req.body;
 
+  const s = await Sweet.findById(sweetId);
+
+  if(s.quantity == buyData.quantity) {
+    res.status(500).json({message: "Quantity is not enough"});
+    return;
+  }
+
   const sweet = await Sweet.findByIdAndUpdate(
     sweetId,
     { $inc: { quantity: -Number(buyData.quantity) } },
