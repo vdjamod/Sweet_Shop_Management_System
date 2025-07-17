@@ -1,4 +1,4 @@
-import { User } from "../Models/index.js";
+import { Sweet, User } from "../Models/index.js";
 
 export const userSignin = async (req, res) => {
   const { userData } = req.body;
@@ -57,4 +57,21 @@ export const userSignup = async (req, res) => {
   } else {
     res.status(500).json({ success: false, message: "Failed to signup" });
   }
+};
+
+export const buySweet = async (req, res) => {
+  const { sweetId } = req.params;
+  const { buyData } = req.body;
+
+  const sweet = await Sweet.findByIdAndUpdate(
+    sweetId,
+    { $inc: { quantity: -Number(buyData.quantity) } },
+    { new: true }
+  );
+  
+  if (!sweet) {
+    res.status(500).json({ message: "Failed to Buy Sweet" });
+  }
+
+  res.status(200).json({ message: "Sweet Buy succesfully..." });
 };

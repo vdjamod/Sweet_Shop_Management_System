@@ -80,7 +80,3 @@ export const sweetSortFilter = async (req, res) => {
     .status(200)
     .json({ message: "Sort and Filter successfully", filteredSweets: result });
 };
-
-export const buySweet = async (req, res) => {
-  const { sweetId } = req.params;
-};
