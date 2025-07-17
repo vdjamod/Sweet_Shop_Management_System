@@ -94,3 +94,17 @@ export const updateSweet = async (req, res) => {
 
   res.status(200).json({ message: "Sweet updated successfully...", result });
 };
+
+export const addInventory = async (req, res) => {
+  const { inventoryData } = req.body;
+
+  for (const key in inventoryData) {
+
+    await Sweet.findOneAndUpdate(
+      { name: key },
+      { $inc: { quantity: parseInt(inventoryData[key]) } }
+    );
+  }
+
+  res.status(200).json({ message: "Inventory Updated Successfully" });
+};

@@ -3,6 +3,7 @@ import {
   addSweet,
   updateSweet,
   ownerSignup,
+  addInventory,
 } from "./owner.controller.js";
 import { userSignin, userSignup } from "./user.controller.js";
 import {
@@ -16,6 +17,7 @@ import {
 export {
   ownerSignin,
   ownerSignup,
+  addInventory,
   getSweet,
   updateSweet,
   userSignin,

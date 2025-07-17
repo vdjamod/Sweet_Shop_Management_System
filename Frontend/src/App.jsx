@@ -10,6 +10,7 @@ import UserSignup from "./component/user/UserSignup";
 import UserSignin from "./component/user/UserSignin";
 import UserHome from "./component/user/UserHome.jsx";
 import OwnerUpdateSweet from "./component/owner/OwnerUpdateSweet.jsx";
+import OwnerAddInventory from "./component/owner/OwnerAddInventory.jsx";
 
 //Utils
 import Home from "./Home.jsx";
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/owner/signin" element={<OwerSignin />} />
           <Route path="/owner/signup" element={<OwnerSignup />} />
+          <Route path="/owner/inventory/add" element={<OwnerAddInventory />} />
           <Route path="/owner/sweet/add" element={<OwnerAddSweet />} />
           <Route
             path="/owner/sweet/:sweetId/update"

@@ -1,11 +1,23 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import UserHome from '../user/UserHome'
 
-function OwnerHome() {
+const OwnerHome = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="text-center p-4">
-      <h1 className="text-3xl font-semibold">Welcome to owner page</h1>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => navigate("/owner/inventory/add")}
+          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+        >
+          + Add Inventory
+        </button>
+      </div>
+
+      <UserHome />
     </div>
   );
-}
+};
 
 export default OwnerHome;
