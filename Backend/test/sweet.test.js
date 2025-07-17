@@ -70,7 +70,7 @@ describe("Sweet crud testing", () => {
 
       const res = await request(app)
         .put(`/owner/sweet/${sweetId}/update`)
-        .send({ sweetData });
+        .send(sweetData);
 
       expect(res.status).toBe(200);
     });
@@ -118,6 +118,20 @@ describe("Sweet crud testing", () => {
       const res = await request(app)
         .post("/sweet/sort-filter")
         .send({ sortFilterOptions });
+
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe("Inventory Update", () => {
+    const inventoryData = {
+      demo: 10,
+    };
+
+    it("Should update stock of given sweet", async () => {
+      const res = await request(app)
+        .post("/owner/sweet/inventory/update")
+        .send({ inventoryData });
 
       expect(res.status).toBe(200);
     });
