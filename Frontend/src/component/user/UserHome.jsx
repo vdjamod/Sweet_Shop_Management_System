@@ -37,11 +37,11 @@ function UserHome() {
     setSortFilterOptions((prev) => ({ ...prev, [field]: value }));
   };
 
-  // const handleBuy = async (sweetId) => {
-  //   console.log(sweetId);
+  const handleBuy = async (sweetId) => {
+    console.log(sweetId);
 
-  //   const res = await axios.post(`${BackendURL}/sweet/${sweetId}/buy`);
-  // };
+    navigate(`/user/sweet/${sweetId}/buy`);
+  };
 
   const handleDelete = async (sweetId) => {
     const res = await axios.delete(`${BackendURL}/sweet/${sweetId}`);
@@ -80,19 +80,20 @@ function UserHome() {
 
       {/* Filter & Sort Controls */}
       <div className="flex flex-wrap gap-4 mb-6 items-end">
+        {/* Sweet Name */}
         <input
           value={sortFilterOptions.name}
           onChange={(e) => changeSortFields("name", e.target.value)}
           type="text"
           placeholder="Enter sweet name"
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:max-w-xs"
         />
 
         {/* Category */}
         <select
           defaultValue=""
           onChange={(e) => changeSortFields("category", e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:max-w-xs"
         >
           <option value="">Select category</option>
           {uniqueCategory.map((category, idx) => (
@@ -106,7 +107,7 @@ function UserHome() {
         <select
           defaultValue=""
           onChange={(e) => changeSortFields("sortBy", e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:max-w-xs"
         >
           <option value="">Sort By</option>
           <option value="price">Price</option>
@@ -118,40 +119,42 @@ function UserHome() {
         <select
           defaultValue={0}
           onChange={(e) => changeSortFields("sort", e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:max-w-xs"
         >
           <option value={0}>Sort Order</option>
           <option value={1}>Asc</option>
           <option value={-1}>Desc</option>
         </select>
 
+        {/* Min Price */}
         <input
           type="number"
           value={sortFilterOptions.min}
           onChange={(e) => changeSortFields("min", e.target.value)}
           placeholder="Min Price"
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:max-w-xs"
         />
 
+        {/* Max Price */}
         <input
           type="number"
-          // defaultValue={0}
           value={sortFilterOptions.max}
           onChange={(e) => changeSortFields("max", e.target.value)}
-          placeholder={sortFilterOptions.max}
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
+          placeholder="Max Price"
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:max-w-xs"
         />
 
+        {/* Buttons */}
         <button
           onClick={handleSort}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition w-full sm:w-auto"
         >
           Sort
         </button>
 
         <button
           onClick={clearFilters}
-          className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition"
+          className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition w-full sm:w-auto"
         >
           Clear Filters
         </button>
@@ -177,18 +180,27 @@ function UserHome() {
               <span className="font-medium">Quantity:</span> {sweet.quantity}
             </p>
 
-            <div className="flex justify-between gap-2 text-sm">
-              <Link
-                to={`/owner/sweet/${sweet._id}/update`}
-                className="text-blue-600 hover:underline"
-              >
-                Update
-              </Link>
+            <div className="flex flex-col gap-2 mt-2">
+              <div className="flex justify-between gap-2 text-sm">
+                <Link
+                  to={`/owner/sweet/${sweet._id}/update`}
+                  className="text-blue-600 hover:underline"
+                >
+                  Update
+                </Link>
+                <button
+                  onClick={() => handleDelete(sweet._id)}
+                  className="text-red-600 hover:underline"
+                >
+                  Delete
+                </button>
+              </div>
+
               <button
-                onClick={() => handleDelete(sweet._id)}
-                className="text-red-600 hover:underline"
+                onClick={() => handleBuy(sweet._id)}
+                className="mt-1 bg-blue-600 text-white text-sm px-4 py-1.5 rounded-lg hover:bg-blue-700 transition"
               >
-                Delete
+                Buy
               </button>
             </div>
           </div>
