@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { BackendURL } from "../../../constants/constant";
 import { useState } from "react";
@@ -15,6 +15,7 @@ function UserSweetBuy() {
   } = useForm();
 
   const { sweetId } = useParams();
+  const navigate = useNavigate();
   const [sweetData, setSweetData] = useState("");
 
   const getSweetData = async () => {
@@ -29,7 +30,18 @@ function UserSweetBuy() {
     getSweetData();
   }, []);
 
-  const handleBuy = () => {};
+  const handleBuy = async (buyData) => {
+    const res = await axios.post(
+      `${BackendURL}/user/sweet/${sweetData._id}/buy`,
+      {
+        buyData,
+      }
+    );
+
+    if(res.status == 200) {
+      navigate('/home');
+    }
+  };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -52,6 +64,7 @@ function UserSweetBuy() {
                 <input
                   id="name"
                   type="name"
+                  disabled
                   autoComplete="name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   {...register("name", { required: "name is required" })}
@@ -81,6 +94,9 @@ function UserSweetBuy() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   {...register("quantity", {
                     required: "quantity is required",
+                    validate: (value) =>
+                      parseInt(value) < sweetData.quantity ||
+                      `Exceed available stock (${sweetData.quantity})`,
                   })}
                 />
                 {errors.quantity && (
@@ -88,7 +104,9 @@ function UserSweetBuy() {
                     {errors.quantity.message}
                   </p>
                 )}
-                available quantity: {sweetData.quantity}
+                <span className="text-xs text-gray-500">
+                  Available stock: {sweetData.quantity}
+                </span>
               </div>
             </div>
 
