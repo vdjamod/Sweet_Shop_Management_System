@@ -90,7 +90,7 @@ describe("Sweet crud testing", () => {
 
   describe("Delete Sweet", () => {
     it("Should delete the sweet", async () => {
-      const sweetId = "68789e0685d94ab1b372e628";
+      const sweetId = "68789df485d94ab1b372e625";
 
       const res = await request(app).delete(`/sweet/${sweetId}`);
 
@@ -145,6 +145,11 @@ describe("Sweet crud testing", () => {
       quantity: 5,
     };
 
+    const buyData2 = {
+      name: "demo",
+      quantity: 50000,
+    };
+
     const sweetId = "687769c0cffd8c066d30ed5f";
 
     it("Should buy and update stock of give sweet", async () => {
@@ -153,6 +158,14 @@ describe("Sweet crud testing", () => {
       });
 
       expect(res.status).toBe(200);
+    });
+
+    it("Should throw error as Stock is not enough", async () => {
+      const res = await request(app).post(`/user/sweet/${sweetId}/buy`).send({
+        buyData2,
+      });
+
+      expect(res.status).toBe(500);
     });
   });
 });
