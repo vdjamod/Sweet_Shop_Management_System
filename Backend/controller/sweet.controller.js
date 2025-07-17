@@ -24,7 +24,7 @@ export const getSweet = async (req, res) => {
 
 export const deleteSweet = async (req, res) => {
   const { sweetId } = req.params;
-  
+
   if (!sweetId) {
     res.status(404).json({ message: "Sweet ID not found..." });
   }
@@ -36,4 +36,51 @@ export const deleteSweet = async (req, res) => {
   }
 
   res.status(200).json({ messsage: "Sweet Delete successfully..." });
+};
+
+export const sweetSortFilter = async (req, res) => {
+  const { sortFilterOptions } = req.body;
+
+  const filterSweetConditions = [];
+
+  if (sortFilterOptions.name) {
+    filterSweetConditions.push({
+      name: { $regex: `^${sortFilterOptions.name}`, $options: "i" }, // options for case insensitive
+    });
+  }
+
+  if (sortFilterOptions.category != "") {
+    filterSweetConditions.push({ category: sortFilterOptions.category });
+  }
+
+  const min = parseInt(sortFilterOptions.min);
+  const max = parseInt(sortFilterOptions.max);
+  filterSweetConditions.push({
+    price: {
+      $gte: min,
+      $lte: max,
+    },
+  });
+
+  let result = null;
+
+  const sortOption = {};
+
+  sortFilterOptions.sort = parseInt(sortFilterOptions.sort); // TO parse int
+
+  if (sortFilterOptions.sortBy != "" && sortFilterOptions.sort != 0) {
+    sortOption[sortFilterOptions.sortBy] = sortFilterOptions.sort;
+
+    result = await Sweet.find({ $and: filterSweetConditions }).sort(sortOption);
+  } else {
+    result = await Sweet.find({ $and: filterSweetConditions });
+  }
+
+  res
+    .status(200)
+    .json({ message: "Sort and Filter successfully", filteredSweets: result });
+};
+
+export const buySweet = async (req, res) => {
+  const { sweetId } = req.params;
 };
